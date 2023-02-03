@@ -1,0 +1,156 @@
+/* 
+    global css classess 
+*/
+:root {
+    --primary-color: #00214e;
+    --secondary-color: #ffffff;
+    --background-color: #f0f2f5;
+    --cancel-color: #D11A2A; 
+    --border-radius: 5px;
+    --text-muted: grey; 
+}
+.background-primary{
+    background-color: var(--background-color);
+}
+.background-white{
+    background-color: white;
+}
+.spacer{ 
+    height: 20px;
+} 
+.separator{
+    border-bottom: 1px lightgrey;
+}
+.box-shadow{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.title {
+    font-weight: bold;
+    font-size: larger;
+}
+.general-padding{
+    padding: 20px;
+}
+
+.card .card-title{
+    font-weight: 500;
+}
+.disableScrolling{
+    margin: 0; height: 100%; overflow: hidden;
+}
+.truncate-1{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+            line-clamp: 1; 
+    -webkit-box-orient: vertical;
+}
+.truncate-4{
+    
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* number of lines to show */
+            line-clamp: 4; 
+    -webkit-box-orient: vertical;
+}
+
+/* 
+
+    Loading Screen Style 
+
+*/
+.loader {
+    border: 6px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 6px solid #3498db;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+#loadingpage{
+    background-color: #1f4480; width: 100%; height: 100%; z-index: 100000; position: fixed; top: 0; left:0;opacity: 0.3;
+}
+#loadingicon{
+    width: 100%; height: 100%; z-index: 100000; position: fixed; top: 0; left:0
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+0% { -webkit-transform: rotate(0deg); }
+100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+  
+/* 
+
+    Button designs 
+
+*/
+.button-primary{
+    background-color: var(--primary-color);
+    color: white;
+    border-color: #e5e5e5 ;
+    border-radius: var(--border-radius);
+}
+.button-primary:hover{
+    background-color: var(--primary-color);
+    color: white;
+    border-color: #e5e5e5 ;
+    border-radius: var(--border-radius);
+}
+.button-secondary{
+    background-color: var(--background-color);
+    border-color: #e5e5e5 ;
+    color: black;
+    border-radius: var(--border-radius);
+}
+.button-cancel{
+    background-color: var(--cancel-color);
+    color: var(--secondary-color);
+    border-radius: var(--border-radius);
+}
+.button-cancel:hover{
+    background-color: var(--cancel-color);
+    color: var(--secondary-color);
+    border-radius: var(--border-radius);
+}
+
+/* 
+
+Fancy Divider Css Design
+
+*/
+
+.text-divider {
+    --text-divider-gap: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.text-divider::before, .text-divider::after {
+    content: '';
+    height: 1px;
+    background-color: silver;
+    flex-grow: 1;
+}
+
+.text-divider::before {
+    margin-right: var(--text-divider-gap);
+}
+
+.text-divider::after {
+    margin-left: var(--text-divider-gap);
+}

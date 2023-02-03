@@ -1,4 +1,5 @@
 
+		<!-- <footer style="background-color: red;"><p>test</p></footer> -->
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>		
@@ -19,6 +20,90 @@
 		<!-- <script src="<?php echo base_url(); ?>application/assets/js/responsive.dataTables.min.js"></script> -->
 		
 		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="//unpkg.com/alpinejs" defer></script>
+		<script>
+       
+	   $(document).ready( function () {
+			$('.field').hide();
+			$('#loadingpage').hide();
+		   $('#loadingicon').hide();
+	   });	
+	   $( "#button" ).click(function() {
+		   $('#loadingpage').show();
+		   $('#loadingicon').show();
+		   $('body').addClass("disableScrolling");
+	   });
+	   $( "#editbutton" ).click(function() {
+			$('.field').show();
+			$('.detail-text').hide();
+	   });
+	   $( "#canceledit" ).click(function() {
+			$('.field').hide();
+			$('.detail-text').show();
+	   });
+   </script>
+   <script>
+		function ConfirmDelete(){
+			if (confirm("Are you sure you want to delete?")){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}  
+	</script>
+		<?php if(isset($analysis)): ?>
+			<script>
+			// SERVICES AND PRODUCTS COUNT
+			document.addEventListener('DOMContentLoaded', function () {
+					const chart2 = Highcharts.chart('percentTypePie', {
+						chart: {
+							type: 'pie',
+							plotBackgroundColor: null,
+							plotBorderWidth: null,
+							plotShadow: false,
+							scrollablePlotArea: {
+								minWidth: 400,
+								scrollPositionX: 1
+							}
+						},
+						// title: {
+						// 	text: ''
+						// },
+						tooltip: {
+							pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+						},
+						accessibility: {
+							point: {
+								valueSuffix: '%'
+							}
+						},
+						plotOptions: {
+							pie: {
+								allowPointSelect: true,
+								cursor: 'pointer',
+								dataLabels: {
+									enabled: true,
+									format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+								}
+							}
+						},
 
+						series: [{
+							name: 'Count',
+							colorByPoint: true,
+							data: [
+								<?php foreach($analysis as $data): ?>
+									<?= 
+										'{name: "' . $data->provider_name. '", y: ' .round(($data->total/$totalProviderCount)*100,2). '},'	
+									?>
+								<?php endforeach; ?>
+							]
+						}]
+
+					});
+				});
+		</script>
+		<?php endif; ?>
     </body>
 </html>
