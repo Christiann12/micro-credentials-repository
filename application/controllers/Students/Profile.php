@@ -12,6 +12,7 @@ class Profile extends CI_Controller {
 		$this->load->library('session');
 
 		$this->api = new ApiRepository();
+		$this->session->set_userdata('base_url',$this->api->base_url);
 	}
 
 	public function index() //Load Homepage - Student
@@ -41,6 +42,7 @@ class Profile extends CI_Controller {
 		if($this->form_validation->run() === true){
 			$postData = array(
 				"first_name"=> $this->input->post('firstName'),
+				
 				"middle_name"=>( ($this->input->post('middleName') != null) ? $this->input->post('middleName') : null),
 				"last_name"=> $this->input->post('lastName'),
 				"student_no"=>( ($this->input->post('studentno') != null) ? $this->input->post('studentno') : null ),
@@ -58,6 +60,12 @@ class Profile extends CI_Controller {
 			if($this->input->post('Password') != null){
 				$postData['password'] = $this->input->post('Password');
 			}
+			if($_FILES["imageUpload"]['tmp_name'] != null){
+				$postData['image'] = new CURLFile( $_FILES["imageUpload"]['tmp_name']);
+			}
+			else{
+				$postData['image'] = '';
+			}
 			
 			$result = json_decode($this->api->updateUser($postData,$this->input->post('id')));
 			if($result->success){
@@ -66,6 +74,7 @@ class Profile extends CI_Controller {
 						"email"=> $this->input->post('email'),
 						"password"=> (($this->input->post('Password') != null) ? $this->input->post('Password') : $this->session->userdata('userData')->password),
 						"first_name"=> $this->input->post('firstName'),
+						"user_type"=> $this->session->userdata("userData")->user_type,
 						"middle_name"=>( ($this->input->post('middleName') != null) ? $this->input->post('middleName') : null),
 						"last_name"=> $this->input->post('lastName'),
 						"student_no"=>( ($this->input->post('studentno') != null) ? $this->input->post('studentno') : null ),
@@ -78,7 +87,8 @@ class Profile extends CI_Controller {
 						"id" => $this->session->userdata("userData")->id,
 						"user_id" => $this->session->userdata("userData")->user_id,
 						"date_created" => $this->session->userdata("userData")->date_created,
-						"date_updated" => date("Y-m-d")	
+						"date_updated" => date("Y-m-d"),
+						"image" => (($_FILES["imageUpload"]['tmp_name'] != null) ? $result->data->image : $this->session->userdata('userData')->image)
 					)
 				);
 				$temp = json_encode($userData);

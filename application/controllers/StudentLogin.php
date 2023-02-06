@@ -34,8 +34,8 @@ class StudentLogin extends CI_Controller {
 				if($this->session->userdata("userData")->user_type == 0){
 					redirect('Home');
 				}
-				else{
-					redirect('Login');
+				elseif($this->session->userdata("userData")->user_type == 1){
+					redirect('Dashboard');
 				}
 				$this->session->set_flashdata('successLogin',$result->message);
 				

@@ -44,11 +44,25 @@
         </div>
         <div class="col-12">
             <input name="id" type="hidden" id="id" class="form-control field" placeholder="Ex. Philippines" value="<?= $this->uri->segment(2) ?>">
-            <input name="credid" type="hidden" id="id" class="form-control field" placeholder="Ex. Philippines" value="<?= $credDetail->id ?>">
+            <input name="credid" type="hidden" id="credid" class="form-control field" placeholder="Ex. Philippines" value="<?= $credDetail->id ?>">
             <center>
-                <img src="https://user-images.githubusercontent.com/1825286/26859182-9d8c266c-4afb-11e7-8913-93d29b3f47e5.png" style="width: 100%; height: 500px;"class="mb-4 rounded"alt="No Picture">
+          
+                <?php if(isset($picture)):?>
+                    <div style="width: 100%; height: 500px;" id="imageContainer" class="mb-4 rounded"></div>
+
+                <?php elseif(isset($credDetail)):?>
+                    <div style="width: 100%; height: 500px;" id="imageContainer" class="mb-4 rounded"></div>
+                <?php else:?>
+                    <div style="width: 100%; height: 500px;" id="imageContainer" class="mb-4 rounded"></div>
+                <?php endif;?>
             </center>
             <div class="row">
+                <div class="col-12 form-label-group mb-3">
+                    <div class="w-100">
+                        <label for="imageUpload" class="font-weight-bold field">AddImage</label>
+                    </div>
+                    <input name="imageUpload" type="file" id="imageUpload" class="field" placeholder="Upload Image" onchange="readURL(this);">
+                </div>
                 <div class="col-12 form-label-group mb-3">
                     <label for="description" class="font-weight-bold">Description</label>
                     <p class="detail-text text-wrap m-0" style="word-break: break-all;"><?= (( $credDetail->description ) ? $credDetail->description  : "N/a") ?></p>

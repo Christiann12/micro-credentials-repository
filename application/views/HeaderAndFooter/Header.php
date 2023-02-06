@@ -21,13 +21,13 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>application/assets/css/Student/Home.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>application/assets/css/Student/Profile.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>application/assets/css/Student/CredentialDetail.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>application/assets/css/Student/Courses.css">
     <!-- ----------------------- -->
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
     <!-- <body style=" font-family: Montserrat; background-color: #e3deee;"> -->
    
-    <body id="body" class="<?= ( (strtolower($this->uri->segment(1)) == 'home') ? "background-primary" : "background-white") ?>" style="font-family: Montserrat; min-width: 1000px;">
-    <div id="loadingpage">
-        
+    <body id="body" class="<?= ( (strtolower($this->uri->segment(1)) == 'home' || strtolower($this->uri->segment(1)) == 'dashboard') ? "background-primary" : "background-white") ?>" style="font-family: Montserrat; min-width: 1000px;">
+        <div id="loadingpage">
         </div>
         <div id="loadingicon">
             <div class="loader mx-auto" style="margin-top: 20%; "></div>
@@ -35,34 +35,64 @@
                 <p class="">loading...</p>
             </center>
         </div>
-    <nav class="shadow-sm navbar navbar-expand-lg p-0 m-0 navbar-light">
-        <a class="navbar-brand " href="#" style="background-color: white;">
-            <div style="height: 100%;">
-                <img src="<?= base_url('application/assets/images/imageassets/mcllogo.png'); ?>" width="100" height="50" class="d-inline-block align-top mx-3 my-2" alt="">
+        <?php if($this->session->userdata('userData')->user_type == 0): ?>
+            <nav class="shadow-sm navbar navbar-expand-lg p-0 m-0 navbar-light">
+                <a class="navbar-brand " href="#" style="background-color: white;">
+                    <div style="height: 100%;">
+                        <img src="<?= base_url('application/assets/images/imageassets/mcllogo.png'); ?>" width="100" height="50" class="d-inline-block align-top mx-3 my-2" alt="">
+                    </div>
+                </a>
+                <button class="navbar-toggler mr-1" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon " ></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarText" >
+                    <ul class="navbar-nav ml-auto">
+                       
+                            <li class="nav-item pl-5 pl-lg-3 pr-lg-3 py-lg-4 <?= ( (strtolower($this->uri->segment(1)) == 'home' || strtolower($this->uri->segment(1)) == 'viewcredential') ? "active" : null) ?>" style="height : 100%;">
+                                <a class="nav-link" href="<?= base_url('Home'); ?>">Home</a>
+                            </li>
+                            <li class="nav-item pl-5 pl-lg-3 pr-lg-3 py-lg-4 <?= ( (strtolower($this->uri->segment(1)) == 'profile') ? "active" : null) ?>">
+                                <a class="nav-link" href="<?= base_url('Profile'); ?>">Profile</a>
+                            </li>
+                            <li class="nav-item pl-5 pl-lg-3 pr-lg-3 py-lg-4 <?= ( (strtolower($this->uri->segment(1)) == 'courses' || strtolower($this->uri->segment(1)) == 'coursedetails') ? "active" : null) ?>">
+                                <a class="nav-link" href="<?= base_url('Courses'); ?>">Courses</a>
+                            </li>
+                    </ul>
+                    <div class=" py-lg-4 px-3 border-left">
+                        <span class="navbar-text" >
+                            Welcome, <?= $this->session->userdata("userData")->first_name ?>
+                        </span>
+                        <a class="ml-3 signout" href="<?= base_url('StudentLogin/logout'); ?>"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </nav>
+        <?php elseif($this->session->userdata('userData')->user_type == 1): ?>
+            <nav class="shadow-sm navbar navbar-expand-lg p-0 m-0 navbar-light" style="height: 50px; z-index:11;">
+                <button class="navbar-toggler ml-auto my-2 mr-2" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" ></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarText" >
+                     <div class="ml-auto py-lg-1 px-3 border-left">
+                        <span class="navbar-text"  data-target="#navbarText">
+                            Welcome, <?= $this->session->userdata("userData")->first_name ?>
+                        </span>
+                        <a class="ml-3 signout" href="<?= base_url('StudentLogin/logout'); ?>"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                    </div>
+                </div> 
+            </nav>
+            <div class="sidebar">
+                <ul class="p-0">  
+                    <li class=" <?= ( (strtolower($this->uri->segment(1)) == 'dashboard') ? "active" : null) ?>" style="  height : 100%;">
+                        <a class="" href="<?= base_url('Dashboard'); ?>">Home</a>
+                    </li>
+                    <li class=" <?= ( (strtolower($this->uri->segment(1)) == 'users') ? "active" : null) ?>" style="  height : 100%;">
+                        <a class="" href="<?= base_url('Users'); ?>">Users</a>
+                    </li>
+                    <li class=" <?= ( (strtolower($this->uri->segment(1)) == 'managecourses') ? "active" : null) ?>" style="  height : 100%;">
+                        <a class="" href="<?= base_url('ManageCourses'); ?>">Courses</a>
+                    </li>
+               </ul>
             </div>
-        </a>
-        <button class="navbar-toggler mr-1" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" style="color: red !important;">
-            <span class="navbar-toggler-icon " ></span>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarText" >
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item pl-5 pl-lg-3 pr-lg-3 py-lg-4 <?= ( (strtolower($this->uri->segment(1)) == 'home' || strtolower($this->uri->segment(1)) == 'viewcredential') ? "active" : null) ?>" style="height : 100%;">
-                    <a class="nav-link" href="<?= base_url('Home'); ?>">Home</a>
-                </li>
-                <li class="nav-item pl-5 pl-lg-3 pr-lg-3 py-lg-4 <?= ( (strtolower($this->uri->segment(1)) == 'profile') ? "active" : null) ?>">
-                    <a class="nav-link" href="<?= base_url('Profile'); ?>">Profile</a>
-                </li>
-                <!-- <li class="nav-item pl-5 pl-lg-3 pr-lg-3 py-lg-4 <?= ( (strtolower($this->uri->segment(2)) == 'page1') ? "d-none" : null) ?>">
-                    <a class="nav-link" href="#">Logout</a>
-                </li> -->
-            </ul>
-            <div class=" py-lg-4 px-3 border-left">
-                <span class="navbar-text" >
-                    Welcome, <?= $this->session->userdata("userData")->first_name ?>
-                </span>
-                <a class="ml-3 signout" href="<?= base_url('StudentLogin/logout'); ?>"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
-            </div>
-        </div>
-    </nav>
+        <?php endif; ?>
 
     

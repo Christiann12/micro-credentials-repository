@@ -104,35 +104,42 @@
         <p class="title">Charts</p>
 
         <div class="row">
-            <div class="col-12 col-lg-6 mb-3" style="height: 500px;">
+            <div class="col-12 col-lg-4 mb-3" style="height: 500px;">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <p class="card-title m-0">
+                            Percentage of credential provider
+                        </p>
+                    </div>
+                    <div class="card-body  h-100 w-100" id="percentProviderPie">
+                         
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4 mb-4" style="height: 500px;">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <p class="card-title m-0">
+                            Credential count gathered per month
+                        </p>
+                    </div>
+                    <div class="card-body h-100 w-100" id="Dates">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4 mb-4" style="height: 500px;">
                 <div class="card h-100">
                     <div class="card-header">
                         <p class="card-title m-0">
                             Percentage of credential type
                         </p>
                     </div>
-                    <div class="card-body  h-100 w-100" id="percentTypePie">
-                         
-                    </div>
-                </div>
-            </div>
-            
-        <!-- graph duplicate delete from here  -->
-            <div class="col-12 col-lg-6 mb-4" style="height: 500px;">
-                <div class="card h-100">
-                    <div class="card-header">
-                        <p class="card-title m-0">
-                            (Graph Title)
-                        </p>
-                    </div>
-                    <div class="card-body" >
+                    <div class="card-body h-100 w-100" id="percentTypePie">
                         
                     </div>
                 </div>
             </div>
- 
-
-        <!-- end of grapg duplicate -->
         </div>
 
     </div>
@@ -158,7 +165,7 @@
                                         </p>
                                     </div>
                                     <div class="col-6">
-                                        <a href="<?= base_url("ViewCredential/".$key); ?>"><i class="fa fa-pencil float-right text-muted" aria-hidden="true" ></i></a>
+                                        <a href="<?= base_url("Students/CredentialDetail/clearCache/".$key); ?>" onclick="myFunction();"><i class="fa fa-pencil float-right text-muted" aria-hidden="true" ></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -207,3 +214,7 @@
         </div>
     </div>
 </Main>
+
+<script>
+   
+</script>

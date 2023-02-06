@@ -32,22 +32,21 @@
 <Main>
     <?php echo form_open_multipart('Students/Profile/edit') ?>
     <div class="row p-5">
-        <div class="col-12 col-sm-12 col-md-6 col-lg-3 pt-3 px-4">
-           <center>
-                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" style="max-width: 100%; height: auto; max-height: 275px;"class="mb-2 rounded"alt="No Picture">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-3 pt-3 px-4 ">
+           
+            <center>
+                <img src="<?= (($this->session->userdata("userData")->image) ? $this->session->userdata('base_url').$this->session->userdata("userData")->image : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png') ?>" id="profilePic" style="max-width: 100%; height: auto; max-height: 275px;"class="mb-2 rounded"alt="No Picture">
+                
                 <p class="mt-1 mb-0 mx-0">
                     <?= (( $this->session->userdata("userData")->first_name ) ? $this->session->userdata("userData")->first_name  : null) ?>
                     <?= (( $this->session->userdata("userData")->middle_name ) ? $this->session->userdata("userData")->middle_name  : null) ?>
                     <?= (( $this->session->userdata("userData")->last_name ) ? $this->session->userdata("userData")->last_name  : null) ?>
                 </p>
-                <p class="small font-italic mb-5 detail-text"><?= (( $this->session->userdata("userData")->email ) ? $this->session->userdata("userData")->email  : "N/a") ?></p>
-                <div class="container-sm px-1">
-                    <label for="email" class="font-weight-bold field">Email</label>
-                    <input name="email" type="text" id="email" class="form-control field mb-3" placeholder="Ex. johndoe@company.com" value="<?= (( $this->session->userdata("userData")->email ) ? $this->session->userdata("userData")->email  : null) ?>">
-                    <label for="Password" class="font-weight-bold field">Password</label>
-                    <input name="Password" type="text" id="Password" class="form-control field mb-3" placeholder="Enter Password">
-                    <label for="confPassword" class="font-weight-bold field">Confirm Password</label>
-                    <input name="confPassword" type="text" id="confPassword" class="form-control field" placeholder="Re-Type Password">
+                <p class="small d-none font-italic mb-5 detail-text"><?= (( $this->session->userdata("userData")->email ) ? $this->session->userdata("userData")->email  : "N/a") ?></p>
+                
+                <div style="margin-top:-60px; ">
+                    <label for="imageUpload" class="field px-2" style="background-color: black; opacity: 0.5; color:white;" >Select file</label>
+                    <input name="imageUpload" type="file" id="imageUpload" class="d-none w-50" placeholder="Upload Image" onchange="readURL2(this);">
                 </div>
             </center>
           
@@ -117,11 +116,19 @@
                         <p class="detail-text m-0"><?= (( $this->session->userdata("userData")->student_no ) ? $this->session->userdata("userData")->student_no  : "N/a") ?></p>
                         <input name="studentno" type="text" id="studentno" class="form-control field" placeholder="Ex. School Student Number" value="<?= (( $this->session->userdata("userData")->student_no ) ? $this->session->userdata("userData")->student_no  : null) ?>">
                     </div>
-                    <!-- <div class=" col-12 col-lg-4 form-label-group mb-3">
+                    <div class=" col-12 col-lg-4 form-label-group mb-3">
                         <label for="email" class="font-weight-bold">Email</label>
                         <p class="detail-text m-0"><?= (( $this->session->userdata("userData")->email ) ? $this->session->userdata("userData")->email  : "N/a") ?></p>
                         <input name="email" type="text" id="email" class="form-control field" placeholder="Ex. johndoe@company.com" value="<?= (( $this->session->userdata("userData")->email ) ? $this->session->userdata("userData")->email  : null) ?>">
-                    </div> -->
+                    </div>
+                    <div class=" col-12 col-lg-6 form-label-group mb-3">
+                        <label for="Password" class="font-weight-bold field">Password</label>
+                        <input name="Password" type="password" id="Password" class="form-control field mb-3" placeholder="Enter Password">
+                    </div>
+                    <div class=" col-12 col-lg-6 form-label-group mb-3">
+                        <label for="confPassword" class="font-weight-bold field">Confirm Password</label>
+                        <input name="confPassword" type="password" id="confPassword" class="form-control field" placeholder="Re-Type Password">
+                    </div>
                     <div class="col-12">
                         <button type="submit" class="btn button-primary px-5 float-right field ml-3">Save</button>
                         <button type="Button" id="canceledit" class="btn button-secondary px-5 float-right field">Cancel</button>

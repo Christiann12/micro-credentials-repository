@@ -53,7 +53,7 @@ $route['default_controller'] = 'StudentLogin';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-// Student Routes 
+// General Routes 
 $route['Login'] = 'StudentLogin';
 $route['login'] = 'StudentLogin';
 
@@ -71,5 +71,23 @@ $route['home'] = 'Students/Home';
 $route['Profile'] = 'Students/Profile';
 $route['profile'] = 'Students/Profile';
 
+$route['Courses'] = 'Students/Courses';
+$route['courses'] = 'Students/Courses';
+$route['Courses/(:any)'] = 'Students/Courses/index/$1';
+$route['courses/(:any)'] = 'Students/Courses/index/$1';
+
 $route['ViewCredential/(:any)'] = 'Students/CredentialDetail/index/$1';
 $route['viewcredential/(:any)'] = 'Students/CredentialDetail/index/$1';
+$route['CourseDetails/(:any)'] = 'Students/CourseDetail/index/$1';
+$route['CourseDetails/(:any)'] = 'Students/CourseDetail/index/$1';
+
+// Admin Routes
+
+$route['Dashboard'] = 'Admin/Dashboard';
+$route['dashboard'] = 'Admin/Dashboard';
+
+$route['ManageCourses'] = 'Admin/Courses';
+$route['managecourses'] = 'Admin/Courses';
+
+$route['Users'] = 'Admin/Users';
+$route['users'] = 'Admin/Users';

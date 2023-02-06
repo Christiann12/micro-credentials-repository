@@ -1,5 +1,5 @@
 
-		<!-- <footer style="background-color: red;"><p>test</p></footer> -->
+
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>		
@@ -21,42 +21,143 @@
 		
 		<script src="https://code.highcharts.com/highcharts.js"></script>
 		<script src="//unpkg.com/alpinejs" defer></script>
+		
+		<!-- Show Uploaded Image  -->
+		<script>
+			try {
+				function readURL(input) {
+					if (input.files && input.files[0]) {
+						var reader = new FileReader();
+						reader.onload = function (e) {
+							$('#imageContainer').attr('style', 'background: url('+e.target.result+');background-size: cover; width: 100%; height: 500px; background-position: center;')  ;
+						};
+						reader.readAsDataURL(input.files[0]);
+					}
+				}
+			} catch (error) { 
+				throw error; 
+			}
+			try {
+				function readURL1(input) {
+					if (input.files && input.files[0]) {
+						var reader = new FileReader();
+						reader.onload = function (e) {
+							$('#imageContainer1').attr('style', 'background: url('+e.target.result+');background-size: cover; width: 100%; height: 500px; background-position: center;')  ;
+						};
+					reader.readAsDataURL(input.files[0]);
+					}
+				}
+			} catch (error) { 
+				throw error; 
+			}
+			try {
+				function readURL2(input) {
+					if (input.files && input.files[0]) {
+						var reader = new FileReader();
+						reader.onload = function (e) {
+							$('#profilePic').attr('src', e.target.result)  ;
+						};
+					reader.readAsDataURL(input.files[0]);
+					}
+				}
+			} catch (error) { 
+				throw error; 
+			}
+
+		</script>
+		<!-- utils js  -->
 		<script>
        
-	   $(document).ready( function () {
-			$('.field').hide();
-			$('#loadingpage').hide();
-		   $('#loadingicon').hide();
-	   });	
-	   $( "#button" ).click(function() {
-		   $('#loadingpage').show();
-		   $('#loadingicon').show();
-		   $('body').addClass("disableScrolling");
-	   });
-	   $( "#editbutton" ).click(function() {
-			$('.field').show();
-			$('.detail-text').hide();
-	   });
-	   $( "#canceledit" ).click(function() {
-			$('.field').hide();
-			$('.detail-text').show();
-	   });
-   </script>
-   <script>
-		function ConfirmDelete(){
-			if (confirm("Are you sure you want to delete?")){
-				return true;
-			}
-			else {
-				return false;
-			}
-		}  
-	</script>
-		<?php if(isset($analysis)): ?>
+			$(document).ready( function () {
+				<?php if(isset($picture)):?>
+					$('#imageContainer').attr('style', 'background: url("<?=  $this->session->userdata('base_url').$picture->image ?>");background-size: cover; width: 100%; height: 500px; background-position: center;')  ;
+				<?php elseif(isset($credDetail->image)):?>
+					$('#imageContainer').attr('style', 'background: url("<?=  $this->session->userdata('base_url').$credDetail->image ?>");background-size: cover; width: 100%; height: 500px; background-position: center;')  ;
+				<?php else:?>
+					$('#imageContainer').attr('style', 'background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/800px-Image_not_available.png?20210219185637");background-size: cover; width: 100%; height: 500px; background-position: center;')  ;
+				<?php endif;?>
+
+				<?php if($this->session->has_userdata('ManageCoursesError')):?>
+					$("#courseModal").modal('show');
+					<?php $this->session->unset_userdata('ManageCoursesError'); ?>
+				<?php endif;?>
+				<?php if($this->session->has_userdata('ManageCoursesErrorUpdate')):?>
+					$("#courseModalEdit").modal('show');
+					<?php $this->session->unset_userdata('ManageCoursesErrorUpdate'); ?>
+					
+				<?php endif;?>
+							
+				$('.field').hide();
+				$('#loadingpage').hide();
+				$('#loadingicon').hide();
+			});	
+			$( "#button" ).click(function() {
+				$('#loadingpage').show();
+				$('#loadingicon').show();
+				$('body').addClass("disableScrolling");
+			});
+			$( "#button1" ).click(function() {
+				$('#loadingpage').show();
+				$('#loadingicon').show();
+				$('body').addClass("disableScrolling");
+			});
+			$( "#editbutton" ).click(function() {
+					$('.field').show();
+					$('.detail-text').hide();
+			});
+			$( "#canceledit" ).click(function() {
+					$('.field').hide();
+					$('.detail-text').show();
+			});
+			
+			$(".test1").click(function(e) {
+				$('#courseModalEdit').on('show.bs.modal', function (event) {
+
+					var button = $(event.relatedTarget);
+
+					var button = $(event.relatedTarget);
+					var title = button.data('title');
+					var description = button.data('description');
+					var link = button.data('link');
+					var provider = button.data('provider');
+					var type = button.data('type');
+					var id = button.data('id');
+					var base_url = "<?= (($this->session->has_userdata('base_url')) ? $this->session->userdata('base_url'): '') ?>";
+					var image = button.data('image');
+					var modal = $(this);
+
+					modal.find('.modal-body #title').val(title);
+					modal.find('.modal-body #description').val(description);
+					modal.find('.modal-body #link').val(link);
+					modal.find('.modal-body #provider').val(provider);
+					modal.find('.modal-body #types').val(type);
+					modal.find('.modal-body #id').val(id);
+					modal.find('.modal-body #secretImg').val(image);
+					if(image != null){
+						modal.find('.modal-body #imageContainer1').attr("style", "background-image: url(" +base_url+image+ "); height: 500px; background-size: cover; background-position: center;");
+					}
+
+
+				})
+			});
+		</script>
+		<!-- confirm delete  -->
+		<script>
+			function ConfirmDelete(){
+				if (confirm("Are you sure you want to delete?")){
+					return true;
+				}
+				else {
+					return false;
+				}
+			}  
+		</script>
+		<!-- graps js  -->
+		<?php if(isset($analysisProvider)): ?>
 			<script>
 			// SERVICES AND PRODUCTS COUNT
 			document.addEventListener('DOMContentLoaded', function () {
-					const chart2 = Highcharts.chart('percentTypePie', {
+					const chart2 = Highcharts.chart('percentProviderPie', {
 						chart: {
 							type: 'pie',
 							plotBackgroundColor: null,
@@ -67,9 +168,9 @@
 								scrollPositionX: 1
 							}
 						},
-						// title: {
-						// 	text: ''
-						// },
+						title: {
+							text: ''
+						},
 						tooltip: {
 							pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
 						},
@@ -93,9 +194,9 @@
 							name: 'Count',
 							colorByPoint: true,
 							data: [
-								<?php foreach($analysis as $data): ?>
+								<?php foreach($analysisProvider as $data): ?>
 									<?= 
-										'{name: "' . $data->provider_name. '", y: ' .round(($data->total/$totalProviderCount)*100,2). '},'	
+										'{name: "' . $data->value. '", y: ' .round(($data->total/$totalProviderCount)*100,2). '},'	
 									?>
 								<?php endforeach; ?>
 							]
@@ -103,7 +204,116 @@
 
 					});
 				});
-		</script>
+			</script>
 		<?php endif; ?>
+		<?php if(isset($analysisDate)): ?>
+			<script>
+				<?php 
+					$months = array('filler','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
+				?>
+				document.addEventListener('DOMContentLoaded', function () {
+					const chart1 = Highcharts.chart('Dates', {
+						chart: {
+							type: 'column',
+							scrollablePlotArea: {
+								minWidth: 400,
+								scrollPositionX: 1
+							}
+						},
+						title: {
+							text: ''
+						},
+						xAxis: {
+							categories: [
+								<?php foreach($months as $data): ?>
+									<?php if($data != 'filler'): ?>
+										<?= '"'.$data.'",' ?>
+									<?php endif; ?>
+								<?php endforeach; ?>
+							],
+							labels: {
+								overflow: 'justify'
+							}
+						},
+						yAxis: {
+							type: 'linear',
+
+							title: {
+								text: 'Count'
+							}
+						},
+
+						series: [{
+							name: 'Number of credentials per month',
+							data: [
+								<?php foreach($months as $key => $data): ?>
+									<?php if($data != 'filler'): ?>
+										<?php if(isset($analysisDate[$key])): ?>
+											<?=  $analysisDate[$key] .',' ?>
+										<?php else: ?>
+											<?=  0 .',' ?>
+										<?php endif; ?>	
+									<?php endif; ?>
+								<?php endforeach; ?>
+							]
+						}]
+
+					});
+				});
+			</script>
+		<?php endif; ?>
+		<?php if(isset($analysisTypes)): ?>
+			<script>
+			// SERVICES AND PRODUCTS COUNT
+			document.addEventListener('DOMContentLoaded', function () {
+					const chart2 = Highcharts.chart('percentTypePie', {
+						chart: {
+							type: 'pie',
+							plotBackgroundColor: null,
+							plotBorderWidth: null,
+							plotShadow: false,
+							scrollablePlotArea: {
+								minWidth: 400,
+								scrollPositionX: 1
+							}
+						},
+						title: {
+							text: ''
+						},
+						tooltip: {
+							pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+						},
+						accessibility: {
+							point: {
+								valueSuffix: '%'
+							}
+						},
+						plotOptions: {
+							pie: {
+								allowPointSelect: true,
+								cursor: 'pointer',
+								dataLabels: {
+									enabled: true,
+									format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+								}
+							}
+						},
+
+						series: [{
+							name: 'Count',
+							colorByPoint: true,
+							data: [
+								<?php foreach($analysisTypes as $data): ?>
+									<?= 
+										'{name: "' . (($data->value == 1) ? 'Certification': (($data->value == 2) ? 'Recognition' : (($data->value == 3) ? 'Attendance' : 'Completion' ))) . '", y: ' .round(($data->total/$totalTypeCount)*100,2). '},'	
+									?>
+								<?php endforeach; ?>
+							]
+						}]
+
+					});
+				});
+			</script>
+		<?php endif; ?>		
     </body>
 </html>

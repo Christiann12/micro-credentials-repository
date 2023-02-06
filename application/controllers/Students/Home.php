@@ -20,14 +20,43 @@ class Home extends CI_Controller {
 			redirect("Login");
 		}
 		else{
-			$data['analysis'] = json_decode($this->api->getAnalysisStudent($this->session->userdata("userData")->user_id))->data;
+			$months = array('filler','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
+			$records = json_decode($this->api->getAnalysisStudent($this->session->userdata("userData")->user_id));
+			$data['analysisProvider'] = $records->data->providers;
+			$data['analysisTypes'] = $records->data->types;
+			$dateData = $records->data->dates;
+			
+			$data['totalProviderCount'] = 0;
+			
+			if(isset($data['analysisProvider'])){
+				foreach($data['analysisProvider'] as $item){
+					$data['totalProviderCount'] += $item->total;
+				}
+			}
+			
+			$data['totalTypeCount'] = 0;
+			
+			if(isset($data['analysisTypes'])){
+				foreach($data['analysisTypes'] as $item){
+					$data['totalTypeCount'] += $item->total;
+				}
+			}
 
+			$temp1 = array();
+			foreach($months as $key => $monthValue){
+				if($monthValue != 'filler'){
+					foreach($dateData as $items){
+						if($key == $items->value){
+							$temp1[$items->value] = $items->total;
+						}
+					}
+				}
+			}
+			
 			$temp = json_decode($this->api->getCredentialByUser($this->session->userdata("userData")->user_id))->data;
 			$this->session->set_userdata("credentials",$temp);
-			$data['totalProviderCount'] = 0;
-			foreach($data['analysis'] as $item){
-				$data['totalProviderCount'] += $item->total;
-			}
+			$data['analysisDate'] = $temp1;
+			
 			$this->load->view('HeaderAndFooter/Header.php');
 			$this->load->view('Students/Home.php',$data);
 			$this->load->view('HeaderAndFooter/Footer.php',$data);
