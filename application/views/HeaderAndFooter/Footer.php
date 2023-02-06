@@ -85,6 +85,11 @@
 					$("#courseModalEdit").modal('show');
 					<?php $this->session->unset_userdata('ManageCoursesErrorUpdate'); ?>
 					
+				<?php endif;?>							
+				<?php if($this->session->has_userdata('oldData')):?>
+					$("#createUserModal").modal('show');
+					<?php $this->session->unset_userdata('oldData'); ?>
+					
 				<?php endif;?>
 							
 				$('.field').hide();
@@ -102,12 +107,12 @@
 				$('body').addClass("disableScrolling");
 			});
 			$( "#editbutton" ).click(function() {
-					$('.field').show();
-					$('.detail-text').hide();
+				$('.field').show();
+				$('.detail-text').hide();
 			});
 			$( "#canceledit" ).click(function() {
-					$('.field').hide();
-					$('.detail-text').show();
+				$('.field').hide();
+				$('.detail-text').show();
 			});
 			
 			$(".test1").click(function(e) {
@@ -140,9 +145,6 @@
 
 				})
 			});
-		</script>
-		<!-- confirm delete  -->
-		<script>
 			function ConfirmDelete(){
 				if (confirm("Are you sure you want to delete?")){
 					return true;
@@ -151,6 +153,10 @@
 					return false;
 				}
 			}  
+		</script>
+		<!-- table js  -->
+		<script>
+			 $('#userTable').DataTable({responsive: true,pageLength: 15,lengthChange: false,searching: true,ordering: true});
 		</script>
 		<!-- graps js  -->
 		<?php if(isset($analysisProvider)): ?>
@@ -275,11 +281,12 @@
 							scrollablePlotArea: {
 								minWidth: 400,
 								scrollPositionX: 1
-							}
+							},
 						},
 						title: {
 							text: ''
 						},
+						
 						tooltip: {
 							pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
 						},
@@ -293,9 +300,10 @@
 								allowPointSelect: true,
 								cursor: 'pointer',
 								dataLabels: {
-									enabled: true,
+									enabled: false,
 									format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-								}
+								},
+								showInLegend: true
 							}
 						},
 

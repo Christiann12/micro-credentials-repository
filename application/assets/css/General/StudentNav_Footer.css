@@ -22,12 +22,12 @@
 /* custom sidebar  */
 
 .sidebar{
-    position: fixed; margin-top: -50px;width: 100px; min-height: 100vh; background-color: pink; z-index: 10;background-color: var(--primary-color);
+    position: fixed; margin-top: -100px;width: 100px; min-height: 200vh; background-color: pink; z-index: 10;background-color: var(--primary-color);
 }
 
 .sidebar ul{
     list-style-type: none;
-    margin-top: 70px;
+    margin-top: 120px;
 }
 .sidebar li{
     margin: 20px 0px;

@@ -9,11 +9,13 @@
                     <div class="col-12 col-md-6 col-lg-3 px-3 py-0 mt-4 mx-0 mb-0 " style="height: 200px; width: 100%">
                         <div class="background-white border rounded shadow-sm w-100 h-100 m-0 p-4">
                             <i class="fa fa-exclamation-circle text-muted m-0 p-0 float-right" style="font-size: 30px; opacity: 0.5;"aria-hidden="true"></i>
-                            <h5 class="text-muted"><?=$key?></h5>
-                            <h1 class="h-75 m-0"><?=$item->count?></h1>
-                            <p class="small text-muted float-right">
-                                Since: <?= date('M. d, Y',strtotime($item->since)) ?>
-                            </p>
+                            <h5 class="text-muted text-truncate"><?=$key?></h5>
+                            <div class="h-100">
+                                <h1 class=" m-0 h-75"><?=$item->count?></h1>
+                                <p class="small text-muted float-right h-25">
+                                    Since: <?= date('M. d, Y',strtotime($item->since)) ?>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>

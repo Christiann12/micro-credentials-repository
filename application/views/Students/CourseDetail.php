@@ -39,7 +39,7 @@
                 <div class="col-12 form-label-group mb-3">
                     <div class="form-label-group">
                         <label for="types" class="font-weight-bold">Type</label>
-                         <p class="detail-text m-0"><?= (($credDetail->type == 1) ? 'Type 1' : (($credDetail->type == 2) ? 'Type 2' : 'N/a') ) ?></p>
+                         <p class="detail-text m-0"><?= (($data->value == 1) ? 'Certification': (($data->value == 2) ? 'Recognition' : (($data->value == 3) ? 'Attendance' : 'Completion' ))) ?></p>
                     </div> 
                 </div> 
                 <div class="col-12 form-label-group mb-3">

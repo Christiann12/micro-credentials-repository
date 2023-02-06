@@ -45,7 +45,8 @@
                 <span class="step <?= ( (strtolower($this->uri->segment(2)) == 'page3') ? "active" : null) ?>"></span>
             </div>
             <div class="spacer"></div>
-            <div class="mainpanel m-auto box-shadow general-padding" style="margin: 70px">
+            
+            <div class="mainpanel box-shadow general-padding mx-auto" style="margin-bottom: 200px;">
                 <?php echo form_open_multipart('Students/Register/checkDetails/') ?>
 
                     
@@ -84,7 +85,7 @@
                         </div>
 
                         <?php elseif(strtolower($this->uri->segment(2)) == 'page2'): ?>
-                        <div>
+                        <div >
                             <h6 class="">Personal Details</h6>
                             <div class="spacer"></div>
                             <input name="uri" type="hidden" id="uri" class="form-control" placeholder="pageuri" value="<?= $this->uri->segment(2)?>">
@@ -110,6 +111,11 @@
                             <div class="form-label-group">
                                 <input name="Contact" maxlength="10" type="number" id="Contact" class="form-control" placeholder="Contact Information" value="<?= ( ($this->session->userdata('personalDetails') != null) ? $this->session->userdata('personalDetails')['contact_no'] : null ); ?>">
                                 <label for="Contact" class="">Contact Information</label>
+                            </div>
+
+                            <div class="form-label-group">
+                                <input name="birthday" type="date" id="birthday" class="form-control" placeholder="Birhtday" value="<?= ( ($this->session->userdata('personalDetails') != null) ? $this->session->userdata('personalDetails')['birthday'] : null ); ?>">
+                                <label for="birthday" class="">Birhtday</label>
                             </div>
                         </div>
 
@@ -158,13 +164,14 @@
                                     <?php endif; ?>
                                 </div>
                             </div>
-                            
+                            <a href="<?= base_url('') ?>" class="small text-muted">Back to login</a>
                             
                         </center>
                     
 
                 <?php echo form_close() ?>
             </div>
+            
            
         <footer class="footer">
             <p>Malayan Colleges Laguna Â © 2018 All Rights Reserved</p>

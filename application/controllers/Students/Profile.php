@@ -51,7 +51,8 @@ class Profile extends CI_Controller {
 				"province"=>$this->input->post('Province'),
 				"city"=>$this->input->post('Municipality'),
 				"barangay"=>$this->input->post('Barangay'),
-				"address1"=>$this->input->post('Address')
+				"address1"=>$this->input->post('Address'),
+				"birthday"=>( ($this->input->post('birthday') != null) ? $this->input->post('birthday') : null ),
 			);
 
 			if($this->input->post('email') != $this->session->userdata('userData')->email){
@@ -88,6 +89,7 @@ class Profile extends CI_Controller {
 						"user_id" => $this->session->userdata("userData")->user_id,
 						"date_created" => $this->session->userdata("userData")->date_created,
 						"date_updated" => date("Y-m-d"),
+						"birthday"=>( ($this->input->post('birthday') != null) ? $this->input->post('birthday') : null ),
 						"image" => (($_FILES["imageUpload"]['tmp_name'] != null) ? $result->data->image : $this->session->userdata('userData')->image)
 					)
 				);

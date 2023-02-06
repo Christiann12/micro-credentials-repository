@@ -74,6 +74,7 @@ class Register extends CI_Controller {
                     'contact_no' => $this->input->post('Contact'),
                     'student_no' => ( ($this->input->post('StudentNo') != null) ? $this->input->post('StudentNo') : null ),
                     'middle_initial' => ( ($this->input->post('MiddleInitial') != null) ? $this->input->post('MiddleInitial') : null ),
+                    'birthday' => ( ($this->input->post('birthday') != null) ? $this->input->post('birthday') : null ),
                 );
 
                 $this->session->set_userdata([
@@ -93,6 +94,7 @@ class Register extends CI_Controller {
                     "middle_name"=>( ($this->session->userdata('personalDetails') != null) ? $this->session->userdata('personalDetails')['middle_initial'] : null ),
                     "last_name"=> $this->session->userdata('personalDetails')['last_name'],
                     "student_no"=>( ($this->session->userdata('personalDetails') != null) ? $this->session->userdata('personalDetails')['student_no'] : null ),
+                    "birthday"=>( ($this->session->userdata('personalDetails') != null) ? $this->session->userdata('personalDetails')['birthday'] : null ),
                     "contact_no"=> $this->session->userdata('personalDetails')['contact_no'],
                     "region"=>$this->input->post('region'),
                     "province"=>$this->input->post('province'),

@@ -71,8 +71,10 @@
                 <?php
                     $types = array(
                         '' => 'Select Type',
-                        "1" => "Type 1", 
-                        "2" => "Type 2", 
+                        "1" => "Certification", 
+                        "2" => "Recognition", 
+                        "3" => "Attendance", 
+                        "4" => "Completion", 
                     ); 
                     echo form_dropdown('types', $types, ((isset($this->session->userdata('oldData')['type'])) ? $this->session->userdata('oldData')['type']: '')  , 'class="form-control" id="types"');
                 ?>
@@ -130,8 +132,10 @@
                 <?php
                     $types = array(
                         '' => 'Select Type',
-                        "1" => "Type 1", 
-                        "2" => "Type 2", 
+                        "1" => "Certification", 
+                        "2" => "Recognition", 
+                        "3" => "Attendance", 
+                        "4" => "Completion", 
                     ); 
                     echo form_dropdown('types', $types,  ((isset($this->session->userdata('test')['type'] )  ) ? $this->session->userdata('test')['type']: null)   , 'class="form-control" id="types"');
                 ?>

@@ -9,6 +9,9 @@
     --border-radius: 5px;
     --text-muted: grey; 
 }
+.color-white{
+    color: white !important;
+}
 .background-primary{
     background-color: var(--background-color);
 }

@@ -67,7 +67,12 @@
                 </div>
             </nav>
         <?php elseif($this->session->userdata('userData')->user_type == 1): ?>
-            <nav class="shadow-sm navbar navbar-expand-lg p-0 m-0 navbar-light" style="height: 50px; z-index:11;">
+            <nav class="shadow-sm navbar navbar-expand-lg p-0 m-0 navbar-light" style=" z-index:11;">
+                <a class="navbar-brand " href="#" style="background-color: white;">
+                    <div style="height: 100%;">
+                        <img src="<?= base_url('application/assets/images/imageassets/mcllogo.png'); ?>" width="100" height="50" class="d-inline-block align-top mx-3 my-2" alt="">
+                    </div>
+                </a>
                 <button class="navbar-toggler ml-auto my-2 mr-2" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon" ></span>
                 </button>

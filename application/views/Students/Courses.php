@@ -21,7 +21,7 @@
         <div class="row">
             <?php if($this->session->userdata('courses')): ?>
                 <?php foreach($this->session->userdata('courses') as $key => $item):?>
-                    <div class="col-12 col-md-6 col-lg-4 mb-4" onclick="location.href='<?= base_url('CourseDetails/'.$key) ?>'" style=" cursor: pointer;">
+                    <div class="col-12 col-md-6 col-lg-4 mb-4" onclick="location.href='<?= $item->link ?>'" style=" cursor: pointer;">
                         <div class="card border-0 shadow-sm" style="height: 400px;">
                             <div class="card-body boder-0 card-course rounded-top" style="background-image: url('<?= (($item->image) ? $this->session->userdata('base_url').$item->image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/800px-Image_not_available.png?20210219185637') ?>');">
                                 <div class="rounded-top" style="z-index: 0; position: absolute; top:0; left: 0; height: 300px; width: 100%; background-image: linear-gradient(to bottom, rgba(255,0,0,0), black); opacity: 0.4">
