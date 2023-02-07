@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 require_once(APPPATH."controllers/ApiRepository.php");
+require_once(APPPATH."controllers/Permission.php");
 class Profile extends CI_Controller {
 
 	private $api;
@@ -13,18 +14,17 @@ class Profile extends CI_Controller {
 
 		$this->api = new ApiRepository();
 		$this->session->set_userdata('base_url',$this->api->base_url);
+		$this->permission = new Permission();
+		if($this->permission->checkUser($this->session->userdata('userData'))){
+			redirect('Login');
+		}
 	}
 
 	public function index() //Load Homepage - Student
 	{
-		if(!$this->session->has_userdata("userData")){
-			redirect("Login");
-		}
-		else{
-			$this->load->view('HeaderAndFooter/Header.php');
-			$this->load->view('Students/Profile.php');
-			$this->load->view('HeaderAndFooter/Footer.php');
-		}
+		$this->load->view('HeaderAndFooter/Header.php');
+		$this->load->view('Students/Profile.php');
+		$this->load->view('HeaderAndFooter/Footer.php');
 	}
 	public function edit(){
 		if($this->input->post('email') != $this->session->userdata('userData')->email){

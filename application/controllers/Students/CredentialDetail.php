@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 require_once(APPPATH."controllers/ApiRepository.php");
+require_once(APPPATH."controllers/Permission.php");
 
 class CredentialDetail extends CI_Controller {
 
@@ -15,30 +16,31 @@ class CredentialDetail extends CI_Controller {
 
 		$this->api = new ApiRepository();
 		$this->session->set_userdata('base_url',$this->api->base_url);
+		$this->permission = new Permission();
+		if($this->permission->checkUser($this->session->userdata('userData'))){
+			redirect('Login');
+		}
 	}
 
 	public function index($credId = '') //Load Homepage - Student
 	{
-		if(!$this->session->has_userdata("userData")){
-			redirect("Login");
+
+		if($this->session->has_userdata("newPicture")){
+			$data['picture'] = $this->session->userdata('newPicture');
+		}
+		if($this->session->has_userdata("newCredDetail")){
+			$data['credDetail'] = $this->session->userdata('newCredDetail');
 		}
 		else{
-			if($this->session->has_userdata("newPicture")){
-				$data['picture'] = $this->session->userdata('newPicture');
-			}
-			if($this->session->has_userdata("newCredDetail")){
-				$data['credDetail'] = $this->session->userdata('newCredDetail');
-			}
-			else{
-				$data['credDetail'] = $this->session->userdata('credentials')[$credId];
-				
-			}
+			$data['credDetail'] = $this->session->userdata('credentials')[$credId];
 			
-			$this->load->view('HeaderAndFooter/Header.php');
-			$this->load->view('Students/CredentialDetail.php',$data);
-			$this->load->view('HeaderAndFooter/Footer.php',$data);
-           
 		}
+		
+		$this->load->view('HeaderAndFooter/Header.php');
+		$this->load->view('Students/CredentialDetail.php',$data);
+		$this->load->view('HeaderAndFooter/Footer.php',$data);
+           
+		
 	}
 	public function clearCache($key){
 		$this->session->unset_userdata(['newPicture']);

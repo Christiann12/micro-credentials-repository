@@ -122,7 +122,7 @@
                         <input name="birthday" type="date" id="birthday" class="form-control field" placeholder="birthday" value="<?= (( $this->session->userdata("userData")->birthday ) ? $this->session->userdata("userData")->birthday  : null) ?>">
                     </div>
                     <div class=" col-12 col-lg-4 form-label-group mb-3">
-                        <label for="email" class="font-weight-bold">Email</label>
+                        <label for="email" class="font-weight-bold field">Email</label>
                         <input name="email" type="text" id="email" class="form-control field" placeholder="Ex. johndoe@company.com" value="<?= (( $this->session->userdata("userData")->email ) ? $this->session->userdata("userData")->email  : null) ?>">
                     </div>
                     <div class=" col-12 col-lg-4 form-label-group mb-3">

@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ApiRepository {
-    public $base_url = 'https://8f96-203-189-119-122.ngrok.io';
+    public $base_url = 'http://9adf-223-25-61-130.ngrok.io';
 
     public function register($postData){
         $url = $this->base_url.'/register';
@@ -179,5 +179,18 @@ class ApiRepository {
         $response = curl_exec($curl);
         curl_close($curl);
         return $response;
+    }
+
+    public function getAllCredential($search){
+
+        $url = $this->base_url.'/all/credential?q='.$search;
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL,$url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return $response;
+
     }
 }

@@ -102,7 +102,7 @@
         <div class="modal-body">
             <input name="id" type="hidden" id="id" class="form-control" placeholder="" value="<?= ((isset($this->session->userdata('test')['id'] )  ) ? $this->session->userdata('test')['id']: null) ?>">
             <input name="secretImg" type="hidden" id="secretImg" class="form-control" placeholder="" value="<?= ((isset($this->session->userdata('test')['image'] )  ) ? $this->session->userdata('test')['image']: null) ?>">
-            <div class="background-primary w-100 rounded mb-3" style="height: 500px; background-image: url('<?= ((isset($this->session->userdata('test')['image'] )  ) ? $base_url.$this->session->userdata('test')['image']: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/800px-Image_not_available.png?20210219185637') ?>'); background-position: center; background-size: cover;" id="imageContainer1">
+            <div class="background-primary w-100 rounded mb-3" style="height: 500px; background-image: url('<?= ((isset($this->session->userdata('test')['image'] )  ) ? $base_url.$this->session->userdata('test')['image']: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/800px-Image_not_available.png?20210219185637') ?>') ; background-position: center; background-size: cover;" id="imageContainer1">
 
             </div>
             <div class="form-label-group mb-3">
@@ -224,3 +224,5 @@
         </div>
     </div>
 </main>
+
+

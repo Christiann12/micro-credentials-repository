@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 require_once(APPPATH."controllers/ApiRepository.php");
-
+require_once(APPPATH."controllers/Permission.php");
 class Users extends CI_Controller {
 
 	public function __construct(){
@@ -13,19 +13,18 @@ class Users extends CI_Controller {
 
 		$this->api = new ApiRepository();
 		$this->session->set_userdata('base_url',$this->api->base_url);
-	}
 
+		$this->permission = new Permission();
+		if($this->permission->checkAdmin($this->session->userdata('userData'))){
+			redirect('Login');
+		}
+	}
 	public function index() //Load Homepage - Admin
 	{
-		if(!$this->session->has_userdata("userData")){
-			redirect("Login");
-		}
-		else{ 
-			$data['users'] = json_decode($this->api->getUsers(''))->data;
-			$this->load->view('HeaderAndFooter/Header.php');
-			$this->load->view('Admin/Users.php',$data);
-			$this->load->view('HeaderAndFooter/Footer.php');
-		}
+		$data['users'] = json_decode($this->api->getUsers(''))->data;
+		$this->load->view('HeaderAndFooter/Header.php');
+		$this->load->view('Admin/Users.php',$data);
+		$this->load->view('HeaderAndFooter/Footer.php');
     }
 	public function create(){
 		$this->form_validation->set_rules('email', 'Email' ,'required');

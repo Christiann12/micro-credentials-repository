@@ -3,25 +3,25 @@
         <div class="row mb-4">
             <div class="col-6">
                 <p class="h3">
-                    <?= (($keyword) ? 'Search Keyword: '.$keyword : 'Search Courses') ?>
+                    Search Courses
                 </p>
             </div>
             <div class="col-6">
-                <?php echo form_open_multipart('Students/Courses/Redirect') ?>
+                <form action="<?= base_url('Courses') ?>">
                     <button type="submit" class="btn button-primary float-right">Search</button>
                     <div class="float-right mr-3">
                     
                         <div class="form-label-group">
-                            <input name="search" type="text" id="search" class="form-control" placeholder=' Enter Search Keyword' value="">
+                            <input name="search" type="text" id="search" class="form-control" placeholder=' Enter Search Keyword' value="<?= urldecode($this->input->get('search'))?>">
                         </div>
                     </div>
-                <?php echo form_close() ?>
+                </form>
             </div>
         </div>
         <div class="row">
             <?php if($this->session->userdata('courses')): ?>
                 <?php foreach($this->session->userdata('courses') as $key => $item):?>
-                    <div class="col-12 col-md-6 col-lg-4 mb-4" onclick="location.href='<?= $item->link ?>'" style=" cursor: pointer;">
+                    <div class="col-12 col-md-6 col-lg-4 mb-4" onclick="window.open('<?= $item->link ?>', '_blank').focus();" style=" cursor: pointer;">
                         <div class="card border-0 shadow-sm" style="height: 400px;">
                             <div class="card-body boder-0 card-course rounded-top" style="background-image: url('<?= (($item->image) ? $this->session->userdata('base_url').$item->image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/800px-Image_not_available.png?20210219185637') ?>');">
                                 <div class="rounded-top" style="z-index: 0; position: absolute; top:0; left: 0; height: 300px; width: 100%; background-image: linear-gradient(to bottom, rgba(255,0,0,0), black); opacity: 0.4">

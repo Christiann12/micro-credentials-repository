@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 require_once(APPPATH."controllers/ApiRepository.php");
+require_once(APPPATH."controllers/Permission.php");
 class Courses extends CI_Controller {
 
 	private $api;
@@ -13,26 +14,22 @@ class Courses extends CI_Controller {
 
 		$this->api = new ApiRepository();
         $this->session->set_userdata('base_url',$this->api->base_url);
+        $this->permission = new Permission();
+        if($this->permission->checkUser($this->session->userdata('userData'))){
+			redirect('Login');
+		}
 	}
 
-	public function index($query='')
+	public function index()
 	{
 
-		if(!$this->session->has_userdata("userData")){
-			redirect("Login");
-		}
-		else{
-            $data['base_url'] = $this->api->base_url;
-            $this->session->set_userdata('courses', json_decode($this->api->getCoursesStudent($query))->data);
-            $data['keyword'] = $query;
-			$this->load->view('HeaderAndFooter/Header.php');
-			$this->load->view('Students/Courses.php',$data);
-			$this->load->view('HeaderAndFooter/Footer.php');
-		}
+        $data['base_url'] = $this->api->base_url;
+        $this->session->set_userdata('courses', json_decode($this->api->getCoursesStudent(urlencode($this->input->get('search'))))->data);
+        $this->load->view('HeaderAndFooter/Header.php');
+        $this->load->view('Students/Courses.php',$data);
+        $this->load->view('HeaderAndFooter/Footer.php');
+
 	}
-	public function redirect(){
-        redirect('Courses/'.$this->input->post('search'));
-    }
     // validation functions
     public function validateEmail($email = ''){
         $postData = array(

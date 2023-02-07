@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 require_once(APPPATH."controllers/ApiRepository.php");
+require_once(APPPATH."controllers/Permission.php");
 
 class Courses extends CI_Controller {
 
@@ -13,21 +14,21 @@ class Courses extends CI_Controller {
 
 		$this->api = new ApiRepository();
 		$this->session->set_userdata('base_url',$this->api->base_url);
+		
+		$this->permission = new Permission();
+		if($this->permission->checkAdmin($this->session->userdata('userData'))){
+			redirect('Login');
+		}
 	}
 
 	public function index() //Load Homepage - Admin
 	{
-		if(!$this->session->has_userdata("userData")){
-			redirect("Login");
-		}
-		else{
-			$data['base_url'] = $this->api->base_url;
-            $data['courses'] = json_decode($this->api->getCoursesStudent(''))->data;
-            
-			$this->load->view('HeaderAndFooter/Header.php');
-			$this->load->view('Admin/Courses.php',$data);
-			$this->load->view('HeaderAndFooter/Footer.php');
-		}
+		$data['base_url'] = $this->api->base_url;
+		$data['courses'] = json_decode($this->api->getCoursesStudent(''))->data;
+		
+		$this->load->view('HeaderAndFooter/Header.php');
+		$this->load->view('Admin/Courses.php',$data);
+		$this->load->view('HeaderAndFooter/Footer.php');
     }
 	public function create(){
 		$this->form_validation->set_rules('title', 'Title' ,'required');

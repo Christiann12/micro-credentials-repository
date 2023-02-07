@@ -91,3 +91,6 @@ $route['managecourses'] = 'Admin/Courses';
 
 $route['Users'] = 'Admin/Users';
 $route['users'] = 'Admin/Users';
+
+$route['CredentialList'] = 'Admin/CredentialList';
+$route['credentiallist'] = 'Admin/CredentialList';

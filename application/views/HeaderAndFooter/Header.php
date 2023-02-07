@@ -14,7 +14,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.min.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>
-
     <!-- developer css  -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>application/assets/css/General/Global.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>application/assets/css/General/StudentNav_Footer.css">
@@ -95,6 +94,9 @@
                     </li>
                     <li class=" <?= ( (strtolower($this->uri->segment(1)) == 'managecourses') ? "active" : null) ?>" style="  height : 100%;">
                         <a class="" href="<?= base_url('ManageCourses'); ?>">Courses</a>
+                    </li>
+                    <li class=" <?= ( (strtolower($this->uri->segment(1)) == 'credentiallist') ? "active" : null) ?>" style="  height : 100%;">
+                        <a class="" href="<?= base_url('CredentialList'); ?>">Credential<br>List</a>
                     </li>
                </ul>
             </div>
