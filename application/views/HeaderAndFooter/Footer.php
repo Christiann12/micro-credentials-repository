@@ -17,7 +17,8 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 		<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
 		<!-- <script src="<?php echo base_url(); ?>application/assets/js/responsive.dataTables.min.js"></script> -->
-		
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script> -->
 		
 		<script src="https://code.highcharts.com/highcharts.js"></script>
 		<script src="//unpkg.com/alpinejs" defer></script>
