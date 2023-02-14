@@ -29,7 +29,7 @@ class StudentLogin extends CI_Controller {
 
 			if($result->success){
 				$this->session->set_userdata(
-					"userData", $result->data,
+					"userData", $result->data
 				);
 				if($this->session->userdata("userData")->user_type == 0){
 					redirect('Home');

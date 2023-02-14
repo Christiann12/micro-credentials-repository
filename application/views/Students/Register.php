@@ -34,6 +34,26 @@
     </div>
     
     <Main>
+            <!-- Modal -->
+            <div class="modal fade" id="datamodal" tabindex="-1" aria-labelledby="datamodal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="datamodal">Data Privacy Act</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    This is a sample data privacy act and the user must read and accept before registering.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+            </div>
+
             <nav class="nav"></nav>
             <div class="logo m-auto">
                 <img src="<?= base_url('application/assets/images/imageassets/mcllogo.png'); ?>" alt="MCL Logo" width="100%" height="100%">
@@ -145,6 +165,10 @@
                                 <textarea name="Address" type="textarea" id="email" class="form-control" placeholder="Street Number/Building No./Subd./ etc."></textarea>
                                 <!-- <label for="Address" class="">Address</label> -->
                             </div>
+                            <div class="d-flex align-items-start justify-content-between">
+                                <label for="dataact" class=" ml-3">Agree to data <a href="#" data-toggle="modal" data-target="#datamodal">policy act</a></label>
+                                <input name="dataact" type="checkbox" id="dataact" class="mr-3" style=" width: 20px; height: 20px;">
+                            </div>
                         </div>
                         
                         <?php endif; ?>
@@ -160,7 +184,7 @@
                                     <?php if($this->uri->segment(2) != 'page3'): ?>
                                         <button type="submit" id="button" class="btn button-primary">Next</button>
                                     <?php else: ?>
-                                        <button type="submit" id="button" class="btn button-primary">Submit</button>
+                                        <button type="submit" id="button" class="btn button-primary submitbuttom">Submit</button>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -203,12 +227,21 @@
         $(document).ready( function () {
             $('#loadingpage').hide();
             $('#loadingicon').hide();
+            $('.submitbuttom').prop('disabled', true);
             
         });	
         $( "#button" ).click(function() {
             $('#email').blur();
             $('#loadingpage').show();
             $('#loadingicon').show();
+        });
+        $( "#dataact" ).click(function() {
+           if($('#dataact').is(":checked")){
+                $('.submitbuttom').prop('disabled', false);
+           }
+           else{
+                $('.submitbuttom').prop('disabled', true);
+           }
         });
     </script>
     </body>

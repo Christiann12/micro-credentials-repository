@@ -10,6 +10,15 @@
       </div>
       <?php echo form_open_multipart('Students/Home/addNewCred') ?>
         <div class="modal-body">
+            <div class=" background-primary w-100 rounded mb-3" style="height: 500px; background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/800px-Image_not_available.png?20210219185637); background-position: center; background-size: cover;" id="imageContainer">
+
+            </div>
+            <div class=" form-label-group mb-3">
+                <div class="w-100">
+                    <label for="imageUpload" class="font-weight-bold">Add Image</label>
+                </div>
+                <input name="imageUpload" type="file" id="imageUpload" class="" placeholder="Upload Image" onchange="readURL3(this);">
+            </div>
             <div class="form-label-group mb-3">
                 <label for="credTitle" class="font-weight-bold">Title<i class="text-danger">*</i></label>
                 <input name="credTitle" type="text" id="Title" class="form-control" placeholder="Ex. Certificate of Completion">
@@ -20,8 +29,23 @@
             </div>
             <div class="form-label-group mb-3">
                 <label for="location" class="font-weight-bold">Location<i class="text-danger">*</i></label>
-                <input name="location" type="text" id="Title" class="form-control" placeholder="Ex. Philippines">
+                <input name="location" type="text" id="location" class="form-control" placeholder="Ex. Philippines">
             </div>
+            <div class="form-label-group mb-3">
+                <label for="skills" class="font-weight-bold">Skill<i class="text-danger">*</i></label>
+                <?php
+                    $skills = array(
+                        '' => 'Select Skill',
+                        "Cyber Security" => "Cyber Security", 
+                        "Database Management" => "Database Management", 
+                        "Software Development" => "Software Development", 
+                        "Data Analytics" => "Data Analytics", 
+                        "Project Management" => "Project Management", 
+                        "Cloud" => "Cloud", 
+                    ); 
+                    echo form_dropdown('skills', $skills, '' , 'class="form-control" id="skills"');
+                ?>
+            </div>  
             <div class="form-label-group mb-3">
                 <label for="types" class="font-weight-bold">Type<i class="text-danger">*</i></label>
                 <?php
@@ -98,11 +122,22 @@
 <?php } ?>
 
 <Main>
-        
+    <div class="spacer"></div>
+    <div class="mx-4"> 
+        <h4 class="m-0 pt-0 px-0 pb-4 font-weight-bold">Top Skills</h4>
+        <div class="w-100 p-0 m-0 rounded shadow" style="height: 50px;">
+            <?php $array = array('#90ed7d','#434348','#7cb5ec','#8085e9','#f7a35c'); $counter = 0;?>
+            <?php if($analysisTopFive): ?>
+                <?php foreach($analysisTopFive as $item): ?>
+                    <div class="h-100 p-0 m-0 float-left <?= (($item === reset($analysisTopFive)) ? 'rounded-left': null)?> <?= (($item === end($analysisTopFive)) ? 'rounded-right': null)?>" style="width: <?= round(($item->total/$totalTopCount)*100,2) ?>%; background-color: <?= $array[$counter] ?>;"><center class="text-truncate px-3" style="padding-top: 13px; color: white;"> <span class="font-weight-bold"><?= round(($item->total/$totalTopCount)*100,0).'%'?></span><?= ' - '.$item->value?></center></div>
+                    <?php $counter += 1; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
     <div class="spacer"></div>
     <div class="mx-4">
         <p class="title">Charts</p>
-
         <div class="row">
             <div class="col-12 col-lg-4 mb-3" style="height: 500px;">
                 <div class="card h-100">
@@ -143,10 +178,7 @@
         </div>
 
     </div>
-    <div class="mx-4">
-        
-        <p class="text-justify m-0"><span class="font-weight-bold">Suggested Job:</span> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-    </div>
+    
     <div class="mx-4">
         <div class="row">
             <div class="col-6">

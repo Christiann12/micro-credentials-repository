@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ApiRepository {
-    public $base_url = 'http://9adf-223-25-61-130.ngrok.io';
+    public $base_url = 'https://dd5f-203-189-119-71.ngrok.io';
 
     public function register($postData){
         $url = $this->base_url.'/register';
@@ -192,5 +192,21 @@ class ApiRepository {
         curl_close($curl);
         return $response;
 
+    }
+
+    public function imagetotext($postData){
+        $ch = curl_init ($this->base_url.'/totxt');
+        curl_setopt_array ( $ch, array (
+                CURLOPT_POST => 1,
+                CURLOPT_POSTFIELDS => $postData
+        ) );
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        //     'Content-Type: multipart/form-data; boundary=<calculated when request is sent>',
+            
+        // ));
+        $response = curl_exec ( $ch );
+        return $response;
     }
 }

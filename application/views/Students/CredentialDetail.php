@@ -70,6 +70,26 @@
                 </div>
                 <div class="col-12 form-label-group mb-3">
                     <div class="form-label-group">
+                        <label for="skills" class="font-weight-bold">Skill</label>
+                        <?php
+                            $skills = array(
+                                '' => 'Select Skill',
+                                "Cyber Security" => "Cyber Security", 
+                                "Database Management" => "Database Management", 
+                                "Software Development" => "Software Development", 
+                                "Data Analytics" => "Data Analytics", 
+                                "Project Management" => "Project Management", 
+                                "Cloud" => "Cloud", 
+                            ); 
+                        ?>
+                        <p class="detail-text m-0"><?= (( $credDetail->skill ) ? $skills[$credDetail->skill]  : "N/a") ?></p>
+                        <?php
+                            echo form_dropdown('skills', $skills,  (( $credDetail->skill ) ? $credDetail->skill  : null)  , 'class="form-control field" id="skills"');
+                        ?>
+                    </div> 
+                </div> 
+                <div class="col-12 form-label-group mb-3">
+                    <div class="form-label-group">
                         <label for="types" class="font-weight-bold">Type</label>
                         <?php
                             $types = array(
@@ -106,7 +126,7 @@
                         <div class="col-12 col-md-6">
                             <div class="form-label-group">
                                 <label for="dateExpFrom" class="font-weight-bold">Date Expiration From</label>
-                                <p class="detail-text m-0"><?= (( $credDetail->date_from ) ? date('Y-m-d',strtotime($credDetail->date_from),)  : "N/a") ?></p>
+                                <p class="detail-text m-0"><?= (( $credDetail->date_from ) ? date('Y-m-d',strtotime($credDetail->date_from))  : "N/a") ?></p>
                                 <input name="dateExpFrom" type="date" id="dateExpFrom" class="form-control field" placeholder="" value="<?= (( $credDetail->date_from ) ? $credDetail->date_from  : null) ?>">
                             </div>
                         </div>

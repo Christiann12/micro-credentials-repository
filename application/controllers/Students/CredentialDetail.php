@@ -53,6 +53,7 @@ class CredentialDetail extends CI_Controller {
 		$this->form_validation->set_rules('dateAcquired', 'Date Acquisition' ,'required');
 		$this->form_validation->set_rules('provider', 'Provider' ,'required');
 		$this->form_validation->set_rules('types', 'Type' ,'required');
+		$this->form_validation->set_rules('skills', 'Skill' ,'required');
 		
 		$postData = array( 
 			"type" => (int) $this->input->post("types"),
@@ -64,6 +65,7 @@ class CredentialDetail extends CI_Controller {
 			"date_acquired" => $this->input->post("dateAcquired"),
 			"provider_name" => $this->input->post("provider"),
 			"location"=> $this->input->post("location"),
+			"skill"=> $this->input->post("skills"),
 		);
 
 		if($_FILES["imageUpload"]['tmp_name'] != null){

@@ -25,6 +25,15 @@
 
 		<!-- Show Uploaded Image  -->
 		<script>
+			function test(){
+				if (confirm("Do you want to autofill?")){
+					
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
 			try {
 				function readURL(input) {
 					if (input.files && input.files[0]) {
@@ -64,7 +73,70 @@
 			} catch (error) { 
 				throw error; 
 			}
+			try {
+				function readURL3(input) {
+					if (input.files && input.files[0]) {
+						var reader = new FileReader();
+						reader.onload = function (e) {
+							$('#imageContainer').attr('style', 'background: url('+e.target.result+');background-size: cover; width: 100%; height: 500px; background-position: center;')  ;
+						};
+						reader.readAsDataURL(input.files[0]);
 
+						var file_data = $('#imageUpload').prop('files')[0];   
+						var form_data = new FormData();                  
+						form_data.append('file', file_data);
+
+						if(test()){
+							$.ajax({
+								url: '<?= base_url('Students/Home/test') ?>',
+								type: 'POST',
+								cache: false,
+								contentType: false,
+								processData: false,
+								beforeSend: function() {
+									$('#loadingpage').show();
+									$('#loadingicon').show();
+								},
+								data : form_data,
+								success: function(data){
+									var json = JSON.parse(data);
+									if(json.message != null){
+										
+										alert('Invalid Certificate');
+									}
+									else if(json.data.provider == "LinkedIn"){
+										$('#Title').val(json.data.title);
+										$('#location').val(json.data.location);
+										$('#Provider').val(json.data.provider);
+									}
+									else if(json.data.provider == "Coursera"){
+										var dateString = json.data.date;
+										var dt = new Date(dateString);
+										var day = ("0" + dt.getDate()).slice(-2);
+										var month = ("0" + (dt.getMonth() + 1)).slice(-2);
+										$('#Title').val(json.data.title);
+										$('#dateAcquired').val(dt.getFullYear()+"-"+(month)+"-"+(day));
+										$('#Provider').val(json.data.provider);
+									}
+									$('#loadingpage').hide();
+									$('#loadingicon').hide();
+									// alert(data);
+								},
+								error: function(xhr) { // if error occured
+									alert("Error occured.please try again");
+									$('#loadingpage').hide();
+									$('#loadingicon').hide();
+								},
+								timeout: 240000
+							});
+						}
+
+					}
+				}
+			} catch (error) { 
+				throw error; 
+			}
+		 
 		</script>
 		<!-- utils js  -->
 		<script>

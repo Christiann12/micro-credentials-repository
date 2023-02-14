@@ -63,7 +63,7 @@ class Register extends CI_Controller {
 					'loginDetails' => $postData,
 				]);
                 $pageNum = substr($this->input->post('uri'),4);
-                echo $pageNum;
+               
         
                 redirect('register/page'.$pageNum+=1 );
             }
@@ -82,7 +82,7 @@ class Register extends CI_Controller {
 				]);
 
                 $pageNum = substr($this->input->post('uri'),4);
-                echo $pageNum;
+                
         
                 redirect('register/page'.$pageNum+=1 );
             }
@@ -122,7 +122,7 @@ class Register extends CI_Controller {
     }
     public function prevpage($uri = ''){
         $pageNum = substr($uri,4);
-        echo $pageNum;
+       
 
         redirect('register/page'.$pageNum-=1 );
     }

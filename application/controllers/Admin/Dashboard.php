@@ -28,7 +28,7 @@ class Dashboard extends CI_Controller {
 		$records = json_decode($this->api->getAnalysisStudent(null));
 
 		$data['totalRecords'] = json_decode($this->api->getTotalData())->data;
-
+		$data['analysisTopFive'] = $records->data->topFiveSkills;
 		$data['analysisProvider'] = $records->data->providers;
 		$data['analysisTypes'] = $records->data->types;
 		$dateData = $records->data->dates;
@@ -45,6 +45,14 @@ class Dashboard extends CI_Controller {
 		if(isset($data['analysisTypes'])){
 			foreach($data['analysisTypes'] as $item){
 				$data['totalTypeCount'] += $item->total;
+			}
+		}
+
+		$data['totalTopCount'] = 0;
+
+		if(isset($data['analysisTopFive'])){
+			foreach($data['analysisTopFive'] as $item){
+				$data['totalTopCount'] += $item->total;
 			}
 		}
 

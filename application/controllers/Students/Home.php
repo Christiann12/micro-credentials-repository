@@ -25,6 +25,7 @@ class Home extends CI_Controller {
 		$records = json_decode($this->api->getAnalysisStudent($this->session->userdata("userData")->user_id));
 		$data['analysisProvider'] = $records->data->providers;
 		$data['analysisTypes'] = $records->data->types;
+		$data['analysisTopFive'] = $records->data->topFiveSkills;
 		$dateData = $records->data->dates;
 		
 		$data['totalProviderCount'] = 0;
@@ -40,6 +41,14 @@ class Home extends CI_Controller {
 		if(isset($data['analysisTypes'])){
 			foreach($data['analysisTypes'] as $item){
 				$data['totalTypeCount'] += $item->total;
+			}
+		}
+
+		$data['totalTopCount'] = 0;
+
+		if(isset($data['analysisTopFive'])){
+			foreach($data['analysisTopFive'] as $item){
+				$data['totalTopCount'] += $item->total;
 			}
 		}
 
@@ -69,6 +78,7 @@ class Home extends CI_Controller {
 		$this->form_validation->set_rules('dateAcquired', 'Date Acquisition' ,'required');
 		$this->form_validation->set_rules('provider', 'Provider' ,'required');
 		$this->form_validation->set_rules('types', 'Type' ,'required');
+		$this->form_validation->set_rules('skills', 'Skill' ,'required');
 		if($this->form_validation->run() === true){
 
 			$postData = array(
@@ -81,8 +91,11 @@ class Home extends CI_Controller {
 				"date_acquired" => $this->input->post("dateAcquired"),
 				"provider_name" => $this->input->post("provider"),
 				"location"=> $this->input->post("location"),
+				"skill"=> $this->input->post("skills"),
 			);
-			
+			if($_FILES["imageUpload"]['tmp_name'] != null){
+				$postData['image'] = new CURLFile( $_FILES["imageUpload"]['tmp_name']);
+			}
 			$result = json_decode($this->api->addCredential($postData));
 			
 			if($result->success){
@@ -107,5 +120,12 @@ class Home extends CI_Controller {
 			$this->session->set_flashdata('errorAddNewCred',$result->message);
 		}
 		redirect('Home');
+	}
+	public function test(){
+		$postData = array(
+			'image' => new CURLFile($_FILES["file"]['tmp_name']),
+		);
+		$result = $this->api->imagetotext($postData);
+		echo $result;
 	}
 }
